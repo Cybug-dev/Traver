@@ -168,3 +168,56 @@ Keep the project documentation lean and purposeful:
 - `working.md` — live task status, decisions, learning log, and handoff notes.
 - `docs/design-system.md` — visual rules, design tokens, Tailwind styling conventions, and UI-state standards.
 - Add more documents only when a real need appears. Link each new document from this file and state when an agent must read it. Do not create speculative documentation.
+
+## Dependency Selection, Version Verification & Maintenance
+
+Dependency selection is STRICT. Never install, recommend, or use a library simply because it is popular, familiar, or frequently suggested by AI.
+
+Before introducing ANY dependency:
+
+1. **Verify currency:** Check its latest stable release, official documentation, changelog, and package registry. Prefer actively maintained libraries with current documentation.
+2. **Verify compatibility:** Confirm that the version supports the project's current framework, React version, TypeScript version, Node.js version, build tools, and other installed dependencies.
+3. **Check maintenance health:** Look for recent releases, ongoing maintenance, unresolved critical issues, known security vulnerabilities, and signs of abandonment or deprecation.
+4. **Check alternatives:** Compare suitable alternatives. Prefer the simplest, most reliable, lightweight option that meets the actual requirement.
+5. **Avoid unnecessary dependencies:** Before installing a package, check whether the functionality can be achieved cleanly using existing dependencies, native browser APIs, CSS, JavaScript, or Tailwind utilities.
+6. **Verify installation instructions:** Always use the official installation method and version-specific documentation. Never blindly copy installation commands from outdated tutorials, blog posts, or AI-generated suggestions.
+
+### Strict Rules
+
+- Prefer the latest **stable and production-ready compatible version**, NOT automatically the newest version if it introduces breaking changes or is incompatible with the project.
+- Never knowingly install deprecated, abandoned, archived, outdated, or vulnerable packages.
+- Never guess package names, API methods, configuration options, or installation commands. Verify them first.
+- Do not downgrade existing dependencies or introduce conflicting versions without a clear technical reason.
+- Avoid installing multiple libraries that solve essentially the same problem.
+- Do not upgrade unrelated dependencies just because newer versions exist.
+- Preserve the package manager and lockfile already used by the project. Never switch package managers without approval.
+- Do not install experimental, beta, release-candidate, or canary versions unless explicitly justified and approved.
+- Keep dependencies minimal. Every additional package introduces maintenance, compatibility, security, and bundle-size considerations.
+
+### Before Installation
+
+If a dependency is necessary, briefly explain:
+- What problem it solves.
+- Why it is needed instead of existing alternatives.
+- Why the selected library and version are suitable.
+- Any important limitations, compatibility concerns, or trade-offs.
+
+Do not overwhelm the user with lengthy research reports. Present only information that affects the technical decision.
+
+### After Installation
+
+- Verify that installation completed successfully.
+- Check for dependency conflicts, peer dependency warnings, and security vulnerabilities.
+- Confirm that the installed version matches the intended version.
+- Ensure the application still builds and functions correctly.
+- Update relevant documentation when the dependency introduces an important architectural or technical decision.
+
+### Verification Integrity
+
+Use current, authoritative sources whenever verification is required, prioritizing official documentation, package registries, release notes, and repository information.
+
+Never claim that a dependency is up-to-date, maintained, secure, or compatible unless you have actually verified it.
+
+If internet access or verification tools are unavailable, explicitly disclose that limitation. Do not pretend verification was completed.
+
+**Core principle:** Choose dependencies based on verified compatibility, reliability, maintenance, and actual project requirements — not popularity, convenience, or AI assumptions.
