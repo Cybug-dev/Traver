@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
-    "module": "nodenext",
+    "module": "esnext",
     "target": "esnext",
+     "moduleResolution": "bundler",
+    "noEmit": true,
     "types": [],
     "sourceMap": true,
     "declaration": true,
