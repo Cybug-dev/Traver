@@ -214,6 +214,6 @@ Record confirmed choices here as they are made. Do not fill this section with gu
 | Brand direction | Pending | Awaiting project direction/reference | — |
 | Color palette | Pending | Awaiting project direction/reference | — |
 | Font family | Pending | Awaiting project direction/reference | — |
-| Tailwind version and token setup | Pending | Confirm from repository before implementation | — |
+| Tailwind version and token setup | Tailwind CSS v4 + `@tailwindcss/vite` | v4 uses `@import "tailwindcss"` in CSS; no config file for base use | 2026-11-04 |
 | Radius and elevation values | Pending | Establish after reviewing the visual direction | — |
 | Breakpoint overrides | None approved | Use installed Tailwind defaults unless a need is demonstrated | — |

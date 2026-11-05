@@ -3,42 +3,44 @@
 > Keep this file current. It is the source of truth for progress between tasks, model limits, and agent changes. Record facts, not guesses. Keep entries concise but specific.
 
 ## Project status
-- **Stage:** New project; repository structure and installed stack have not yet been inspected.
-- **Overall status:** Not started.
+- **Stage:** Stack confirmed and Tailwind CSS v4 installed. Ready for first UI task.
+- **Overall status:** Foundation complete.
 
 ## Current task
-- **Goal:** Establish the project incrementally while learning the foundations of Tailwind CSS.
-- **Scope:** To be defined and approved one small task at a time.
-- **Status:** Not started.
+- **Goal:** Install Tailwind CSS v4 and wire it into the Vite build.
+- **Scope:** `vite.config.js`, `src/index.css` (pre-existing import), `package.json`.
+- **Status:** Complete.
 
 ## Completed
-- [ ] No implementation tasks completed yet.
+- [x] Inspected repo structure, confirmed React 19, Vite 8, TypeScript.
+- [x] Installed `tailwindcss` + `@tailwindcss/vite` via npm.
+- [x] Added `tailwindcss()` plugin to `vite.config.js`.
+- [x] `npm run build` passes — Tailwind CSS emitted in `dist/assets/index-*.css` (7.68 kB).
 
 ## In progress
 - None.
 
 ## Next step
-1. Inspect the repository's existing structure and package setup after reading `agent.md` and this file.
-2. Confirm the installed framework and Tailwind CSS version; do not assume a version or install anything without a reason.
-3. Propose a small first implementation task and explain its learning focus before coding.
+Propose and implement the first small UI component (e.g. a page layout or card) using Tailwind utilities.
 
 ## Files changed
-- None yet.
+- `vite.config.js` — added `@tailwindcss/vite` plugin.
+- `package.json` / `package-lock.json` — `tailwindcss` and `@tailwindcss/vite` added as dependencies.
 
 ## Checks/results
-- Not run; project setup has not been inspected.
+- `npm run build` → exit 0, 16 modules, CSS emitted at 7.68 kB. ✅
+- 6 moderate audit warnings (pre-existing in project; not introduced by Tailwind packages).
 
 ## Decisions and assumptions
 - `agent.md` is the mandatory first document for every agent session.
 - `working.md` is the progress and handoff source of truth; do not create a parallel `progress.md`.
 - `docs/design-system.md` governs UI consistency and must be read before UI or styling work.
 - The project will be developed in small, user-reviewed slices rather than generated all at once.
-- The actual framework, package versions, and starter structure are not yet confirmed.
+- **Tailwind version confirmed: v4** — installed `tailwindcss` + `@tailwindcss/vite`; CSS entry point uses `@import "tailwindcss"` (v4 syntax, no config file required by default).
 
 ## Learning log
-- No project-specific code or Tailwind utilities have been introduced yet.
-- For each completed UI task, record the important Tailwind utility groups and concepts explained to the user. Avoid listing every trivial class.
+- **Tailwind v4 setup:** v4 drops the `tailwind.config.js` file for basic use. The CSS entry point is a single `@import "tailwindcss"` directive. The Vite plugin (`@tailwindcss/vite`) handles scanning and CSS generation at build time — no PostCSS config needed.
 
 ## Blockers / handoff notes
-- No application source has been inspected and no implementation has started.
-- **Resume here:** read `agent.md` first, then this file; inspect the repository setup; propose the first small task before implementation.
+- Stack confirmed. Ready for first UI task.
+- **Resume here:** read `agent.md` → `working.md` → `docs/design-system.md`; propose next UI component.
