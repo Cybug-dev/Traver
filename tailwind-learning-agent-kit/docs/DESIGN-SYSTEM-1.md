@@ -58,6 +58,7 @@ Maintain one source of truth for shared tokens. Use semantic names, not names ti
 - Keep radii and shadows restrained and reusable.
 - Prefer default Tailwind breakpoints unless the design genuinely requires a documented custom breakpoint.
 - Add only tokens that solve recurring needs.
+- Do not use arbitrary Tailwind values or one-off inline styles for design values. Use the standard scale or add a reusable token and named utility for a recurring need.
 
 ## 4. Typography
 

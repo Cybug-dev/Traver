@@ -10,7 +10,7 @@ At the beginning of every task or new agent session:
 
 1. Read this `agent.md` first. It is the entry point and defines how to work in this repository.
 2. Read `working.md` next. It is the source of truth for current progress, decisions, completed work, learning notes, and the exact next step. Create it from the template if it does not exist.
-3. For any UI, styling, layout, component, or responsive-design task, read `docs/design-system.md` before making design decisions. Read other project documents only when this file or the task makes them relevant.
+3. For any UI, styling, layout, component, or responsive-design task, read `docs/DESIGN-SYSTEM-1.md` and `docs/Token-Reference.md` before making design decisions. Read other project documents only when this file or the task makes them relevant.
 4. Inspect the relevant source files only after completing the steps above.
 
 Do not assume a file, framework, package version, feature, or previous decision exists unless the repository or its documentation confirms it. If a referenced document is missing, record that fact and create it only when needed.
@@ -68,12 +68,13 @@ Use Tailwind as the primary styling method. Do not replace simple utility stylin
 Do not assume Tailwind v3 or v4. Inspect the installed version and existing setup before changing configuration or using version-specific syntax.
 
 ## 6. Design-system authority
-`docs/design-system.md` is the source of truth for visual consistency. Read it before UI work and follow it even when an external template or screenshot is supplied.
+`docs/DESIGN-SYSTEM-1.md` is the source of truth for visual consistency. Read it before UI work and follow it even when an external template or screenshot is supplied. `docs/Token-Reference.md` records sampled values and estimates from the supplied screenshot; consult it before using or changing shared tokens.
 
 - Treat external references as **inspiration for layout, hierarchy, interaction, and visual direction**, not as permission to copy their entire design system.
 - Adapt the reference to this project's approved colors, typography, spacing, radii, component patterns, and responsive rules.
 - Do not introduce a new font, color, spacing value, radius, shadow, breakpoint, or interaction style casually. Use an existing token or propose a documented design-system change.
-- For UI not shown in the supplied reference, follow the existing screens and components first. If no precedent exists, derive the UI from `docs/design-system.md` and the closest existing pattern. Do not invent a visually unrelated design.
+- Do not use arbitrary Tailwind values or one-off inline styling for design values. Use a standard utility or add a reusable, documented token exposed through a named utility.
+- For UI not shown in the supplied reference, follow the existing screens and components first. If no precedent exists, derive the UI from `docs/DESIGN-SYSTEM-1.md` and the closest existing pattern. Do not invent a visually unrelated design.
 - Keep all screens visually related: navigation, buttons, form fields, cards, dialogs, toasts, tables, empty states, and other shared UI must use the same rules.
 - Before adding a new reusable pattern, check whether an existing component already solves the problem.
 - If the design system needs a change, explain why and update the design-system document as part of the approved task. Do not silently create one-off styles.
@@ -175,7 +176,8 @@ Keep the project documentation lean and purposeful:
 
 - `agent.md` — mandatory entry point; agent behavior, workflow, learning, and links to other documents.
 - `working.md` — live task status, decisions, learning log, and handoff notes.
-- `docs/design-system.md` — visual rules, design tokens, Tailwind styling conventions, and UI-state standards.
+- `docs/DESIGN-SYSTEM-1.md` — visual rules, design tokens, Tailwind styling conventions, and UI-state standards.
+- `docs/Token-Reference.md` — screenshot-sampled design values and explicit estimates; read for UI and token work.
 - Add more documents only when a real need appears. Link each new document from this file and state when an agent must read it. Do not create speculative documentation.
 
 ## Dependency Selection, Version Verification & Maintenance

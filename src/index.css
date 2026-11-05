@@ -1,1 +1,297 @@
+/*
+ * TRAVER — design tokens and lightweight global base styles
+ * Source: the supplied Traver landing-page screenshot (521 × 1536).
+ *
+ * Accuracy notes:
+ * - Brand orange and the two large pale section surfaces were sampled from
+ *   visible screenshot pixels.
+ * - Typography, spacing, radii, shadows and breakpoints are visual estimates:
+ *   a screenshot cannot expose the source CSS or exact font metadata.
+ * - Poppins is the closest visual match selected for the geometric sans-serif
+ *   typography. Replace it only if the original template font is identified.
+ *
+ * Tailwind compatibility:
+ * - This file uses standard CSS custom properties and does not assume
+ *   Tailwind v3 or v4. Keep your existing Tailwind entry directives/import
+ *   in place when merging this into the project's src/index.css.
+ */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap");
 @import "tailwindcss";
+
+/* Named Tailwind utilities backed by the shared Traver tokens below. */
+@theme inline {
+  --color-accent: var(--color-brand);
+  --color-accent-hover: var(--color-brand-hover);
+  --color-accent-outline: var(--color-brand-outline);
+  --color-accent-text: var(--color-brand-text);
+  --color-content: var(--color-text);
+  --color-on-accent: var(--color-text-inverse);
+  --color-header-surface: var(--color-surface-header);
+  --color-canvas: var(--color-surface);
+  --color-surface-muted: var(--color-surface-soft);
+  --color-outline: var(--color-border);
+  --color-focus-ring: var(--color-focus);
+  --spacing-header: var(--header-height);
+  --spacing-nav-action: var(--button-height-nav);
+  --spacing-auth-action: 4.75rem;
+  --radius-control: var(--radius-button);
+  --shadow-floating: var(--shadow-float);
+}
+
+:root {
+  /* -----------------------------------------------------------------------
+     1. Brand and color system
+     ----------------------------------------------------------------------- */
+
+  /* Screenshot-sampled primary orange (CTA buttons and brand accents). */
+  --color-brand: #f2701c;
+  /* Keep hover feedback within the reference's brighter orange treatment. */
+  --color-brand-hover: #f58432;
+  /* Estimated from the navbar's soft outlined Sign Up action. */
+  --color-brand-outline: #e6c5a7;
+  --color-brand-text: #c96b2e;
+
+  --color-brand-soft: #fff4ee;
+  --color-brand-soft-strong: #ffeadf;
+
+  --color-text: #1a1a1a;
+  --color-text-secondary: #555555;
+  --color-text-muted: #858585;
+  --color-text-subtle: #a0a0a0;
+  --color-text-inverse: #ffffff;
+
+  --color-surface: #ffffff;
+  /* Neutral near-white used by the reference navbar. */
+  --color-surface-header: #f7f7f7;
+  /* Screenshot-sampled cool, near-white section surface. */
+  --color-surface-soft: #f6f8f7;
+  /* Screenshot-sampled warm surface used by the lower promotional panel. */
+  --color-surface-warm: #fff4ee;
+  --color-surface-card: #ffffff;
+  --color-surface-input: #fafafa;
+
+  --color-border: #ededed;
+  --color-border-strong: #e3e5e4;
+  --color-divider: #eeeeee;
+
+  --color-success: #23845b;
+  --color-warning: #d98a25;
+  --color-error: #c53d3d;
+  --color-focus: #1b75d0;
+
+  /* -----------------------------------------------------------------------
+     2. Typography
+     ----------------------------------------------------------------------- */
+
+  --font-body: "Poppins", "Avenir Next", Avenir, "Segoe UI", sans-serif;
+  --font-heading: "Poppins", "Avenir Next", Avenir, "Segoe UI", sans-serif;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  --text-xs: 0.75rem;       /* 12px — captions, metadata */
+  --text-sm: 0.875rem;      /* 14px — navigation, secondary copy */
+  --text-base: 0.9375rem;   /* 15px — default body copy */
+  --text-lg: 1.125rem;      /* 18px — lead copy */
+  --text-xl: 1.25rem;       /* 20px — small headings */
+  --text-2xl: 1.5rem;       /* 24px */
+  --text-3xl: 1.875rem;     /* 30px */
+  --text-4xl: 2.25rem;      /* 36px */
+
+  /* Fluid display sizes: large on desktop, controlled on narrow screens. */
+  --text-hero: clamp(2.125rem, 4.8vw, 3.5rem);
+  --text-section-title: clamp(1.75rem, 3.2vw, 2.5rem);
+  --text-section-subtitle: clamp(1.25rem, 2vw, 1.625rem);
+
+  --leading-tight: 1.12;
+  --leading-heading: 1.24;
+  --leading-normal: 1.6;
+  --leading-relaxed: 1.75;
+
+  --tracking-tight: -0.035em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+
+  /* -----------------------------------------------------------------------
+     3. Spacing scale (4px base unit)
+     ----------------------------------------------------------------------- */
+
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-14: 3.5rem;   /* 56px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* Layout spacing adjusts at the breakpoints below. */
+  --container-max: 75rem; /* 1200px */
+  --container-gutter: clamp(1rem, 4vw, 2rem);
+  --section-space: clamp(3.75rem, 6vw, 6rem);
+  --content-max: 48rem;
+  --grid-gap: clamp(1rem, 2vw, 1.5rem);
+
+  /* -----------------------------------------------------------------------
+     4. Corners, borders and shadows
+     ----------------------------------------------------------------------- */
+
+  --radius-sm: 0.5rem;    /* 8px — compact controls */
+  --radius-button: 0.625rem; /* 10px — shared button corner */
+  --radius-md: 0.75rem;   /* 12px — buttons and small cards */
+  --radius-lg: 1rem;      /* 16px — cards */
+  --radius-xl: 1.5rem;    /* 24px — image groups and larger cards */
+  --radius-2xl: 2rem;     /* 32px — large feature surfaces */
+  --radius-panel: 2.5rem; /* 40px — broad landing-page panels */
+  --radius-pill: 999px;
+
+  --border-width: 1px;
+  --border-default: var(--border-width) solid var(--color-border);
+
+  --shadow-card: 0 0.35rem 1.25rem rgb(17 17 17 / 5%);
+  --shadow-card-hover: 0 0.75rem 1.75rem rgb(17 17 17 / 9%);
+  --shadow-float: 0 0.5rem 1.5rem rgb(17 17 17 / 8%);
+  --shadow-search: 0 0.25rem 1.25rem rgb(17 17 17 / 6%);
+
+  /* -----------------------------------------------------------------------
+     5. Component sizing
+     ----------------------------------------------------------------------- */
+
+  --header-height: 3.5rem;
+  --button-height-nav: 1.875rem;
+  --button-height-sm: 2.5rem;
+  --button-height-md: 2.875rem;
+  --button-height-lg: 3.25rem;
+  --input-height: 3.25rem;
+  --icon-size-sm: 1rem;
+  --icon-size-md: 1.25rem;
+  --icon-size-lg: 1.5rem;
+
+  /* -----------------------------------------------------------------------
+     6. Motion
+     ----------------------------------------------------------------------- */
+
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --duration-slow: 320ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Tablet: retain breathing room while tightening long-page sections. */
+@media (min-width: 48rem) {
+  :root {
+    --container-gutter: 1.5rem;
+    --section-space: clamp(4.5rem, 6vw, 5.5rem);
+    --grid-gap: 1.25rem;
+  }
+}
+
+/* Desktop: use the wide composition shown in the supplied reference. */
+@media (min-width: 64rem) {
+  :root {
+    --container-gutter: 2rem;
+    --section-space: clamp(5rem, 6vw, 6.5rem);
+    --grid-gap: 1.5rem;
+  }
+}
+
+/* Small phones: reduce vertical rhythm, not readability. */
+@media (max-width: 30rem) {
+  :root {
+    --container-gutter: 1rem;
+    --section-space: 3.5rem;
+    --grid-gap: 0.875rem;
+    --radius-panel: 1.75rem;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   Lightweight global base styles
+   ------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + var(--space-4));
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--leading-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+:where(h1, h2, h3, h4, h5, h6) {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-heading);
+}
+
+:where(p) {
+  margin: 0;
+}
+
+@layer base {
+  :where(button, input, select, textarea) {
+    font: inherit;
+  }
+}
+
+:where(button, a, input, select, textarea) {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+:where(img, picture, video, canvas, svg) {
+  display: block;
+  max-width: 100%;
+}
+
+:where(img) {
+  height: auto;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
