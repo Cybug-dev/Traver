@@ -140,6 +140,11 @@ Treat model context, tokens, and the user's attention as limited resources.
 
 - Read `agent.md`, then `working.md`, then only the relevant design/documentation sections and source files.
 - Search before opening large files. Use targeted commands and avoid dumping entire directories or unrelated logs.
+- For a specific symbol, behavior, or UI element, search first with `rg -n "term|RelatedTerm" <relevant-path>`; narrow the path to the likely feature or file instead of scanning the whole repository. Search filenames with `rg --files <relevant-path> | rg "pattern"` when the target file is unknown.
+- After a match, inspect only a small line window around it (for example, `Get-Content <file> | Select-Object -Skip <start> -First <count>` or an equivalent editor range). Expand the window only when the surrounding logic requires it.
+- Follow imports, callers, types, and tests only as needed to understand the requested change. Search for the exact symbol to find those links; do not read neighboring modules or the entire codebase by default.
+- If a search returns too many matches, add a distinctive term, constrain the path, or search by filename/symbol. If it returns none, broaden one step at a time and check spelling/case before opening unrelated files.
+- Before editing, confirm the smallest relevant source location and its immediate dependencies; after editing, inspect the focused diff. Read a whole file only when it is short or the change genuinely depends on its full structure.
 - Do not repeat instructions or re-explain concepts the user already understands. Build on the learning log.
 - Keep plans, explanations, comments, summaries, and handoff notes proportional to the task.
 - Do not narrate every tool call or internal thought. Share useful findings and decisions only.
@@ -159,7 +164,11 @@ After implementation and documentation updates, give a brief, structured report:
 Keep the report incisive. Explain the meaningful parts, not every trivial line. Mention a better alternative only when it genuinely matters. Update `working.md` before sending the report, so the next model can continue from the recorded state.
 
 ## 14. Git and commits
-When creating a commit, use Conventional Commits with a short, specific subject, e.g. `feat(profile): add editable profile form`. Add concise behavior-focused bullets only when useful. Do not commit unless the user requests it or the repository's established workflow requires it.
+When creating or suggesting a commit message, use Conventional Commits: `type(scope): short imperative summary` (for example, `docs(traver): document the landing page flow`). Choose a type that matches the change (`feat`, `fix`, `docs`, `refactor`, `test`, `build`, or `chore`) and a concise, relevant scope when useful.
+
+- If the change has multiple meaningful parts, add a blank line and concise bullets describing those parts. Keep each bullet specific and group related changes; do not list every file or repeat the subject.
+- Base the subject and bullets on the full intended commit contents, checking staged and unstaged changes with `git status` and the relevant diff summary first. Do not describe unrelated work as one change; suggest separate commits when the changes have distinct purposes.
+- Do not commit unless the user requests it or the repository's established workflow requires it.
 
 ## 15. Required project documents
 Keep the project documentation lean and purposeful:

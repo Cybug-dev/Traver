@@ -7,11 +7,13 @@
 - **Overall status:** Foundation complete.
 
 ## Current task
-- **Goal:** Install Tailwind CSS v4 and wire it into the Vite build.
-- **Scope:** `vite.config.js`, `src/index.css` (pre-existing import), `package.json`.
+- **Goal:** Document efficient code navigation and clear Conventional Commit guidance for agents.
+- **Scope:** `Agent.md` guidance and this handoff only; no application source inspection or changes.
 - **Status:** Complete.
 
 ## Completed
+- [x] Added targeted `rg` search, narrow context windows, dependency tracing, and focused diff guidance to `Agent.md`.
+- [x] Added Conventional Commit subject/body and full-worktree review guidance to `Agent.md`.
 - [x] Inspected repo structure, confirmed React 19, Vite 8, TypeScript.
 - [x] Installed `tailwindcss` + `@tailwindcss/vite` via npm.
 - [x] Added `tailwindcss()` plugin to `vite.config.js`.
@@ -21,13 +23,17 @@
 - None.
 
 ## Next step
-Propose and implement the first small UI component (e.g. a page layout or card) using Tailwind utilities.
+For the next UI task, follow the search-first workflow and start with the smallest relevant component; read `docs/design-system.md` before making UI decisions.
 
 ## Files changed
+- `Agent.md` — added a search-first workflow to locate code without reading unrelated files.
+- `Agent.md` — documented Conventional Commit formatting and checking all intended changes before suggesting a message.
+- `working.md` — recorded this documentation task and its handoff.
 - `vite.config.js` — added `@tailwindcss/vite` plugin.
 - `package.json` / `package-lock.json` — `tailwindcss` and `@tailwindcss/vite` added as dependencies.
 
 ## Checks/results
+- Documentation change reviewed with targeted `rg` searches and `git diff`; no application checks run.
 - `npm run build` → exit 0, 16 modules, CSS emitted at 7.68 kB. ✅
 - 6 moderate audit warnings (pre-existing in project; not introduced by Tailwind packages).
 
