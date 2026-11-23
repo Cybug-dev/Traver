@@ -1,4 +1,4 @@
-# Traver — Design System
+﻿# Traver — Design System
 
 > Purpose: A concise source of truth for Traver's shared visual language and UI behaviour.
 > Direction: Match the supplied Traver reference, with careful refinement for accessibility, responsiveness, usability, and consistency. Do not redesign it into a different brand.
@@ -62,6 +62,8 @@ Maintain one source of truth for shared tokens. Use semantic names, not names ti
 
 ## 4. Typography
 
+- Use the navbar's existing Poppins family across the app through the shared body/heading font tokens, including badges, forms, and actions. Do not give detail headings a separate font family. Semibold may distinguish compact headings without changing their typeface.
+
 - Use the reference font when identifiable or supplied.
 - Define a clear hierarchy for hero/display headings, section headings, card headings, body text, labels, and captions.
 - Keep font sizes, weights, line heights, and letter spacing consistent.
@@ -87,6 +89,8 @@ Create reusable components when a pattern repeats or has meaningful shared behav
 Shared components should have consistent typography, spacing, sizing, radius, border treatment, focus/disabled states, icon alignment, and responsive behaviour.
 
 ### Buttons and links
+
+- Navbar auth actions and the search action share the 12px control-radius token. Use `rounded-control` / `--radius-button` for these roles rather than a sharper local radius.
 - Distinguish primary, secondary, text, and destructive actions where needed.
 - Use clear action labels.
 - Provide hover, focus-visible, active, and disabled states.
@@ -161,7 +165,7 @@ When a screen, modal, toast, empty state, or interaction is not shown:
 3. Apply the tokens and component standards in this document.
 4. Preserve the reference's visual identity and level of polish.
 5. Choose the simplest accessible behaviour that completes the journey.
-6. Record meaningful assumptions in `WORKING.md`.
+6. Record meaningful assumptions in `working.md`.
 
 Do not import another template's design system to fill a gap. Do not invent complex product rules. Ask the user when a missing decision materially affects the product or navigation.
 

@@ -1,4 +1,4 @@
-# Traver — App Flow
+﻿# Traver — App Flow
 
 > Purpose: Give every AI agent the product and interaction context needed to build consistently without making the user re-explain the project.
 > Project type: Frontend-focused travel discovery website and Tailwind CSS learning project. Use mock data and simulated interactions for now.
@@ -88,11 +88,11 @@ Do not add fake loading or network-error states without a real interaction reaso
 When a screen or interaction is not shown:
 
 1. Check this file for the intended journey and project scope.
-2. Check `docs/DESIGN-SYSTEM.md` for visual and interaction rules.
+2. Check `docs/DESIGN-SYSTEM-1.md` for visual and interaction rules.
 3. Inspect existing screens and components for established patterns.
 4. Reuse those patterns and the existing Traver visual language.
 5. Choose the simplest sensible behaviour consistent with the product.
-6. Record meaningful assumptions in `WORKING.md`.
+6. Record meaningful assumptions in `working.md`.
 
 Do not copy an unrelated template or invent a new visual direction. Ask the user if an assumption materially changes product behaviour, data, or navigation.
 
@@ -109,7 +109,7 @@ After implementation, explain the important code and Tailwind utility groups in 
 ## 7. First task: responsive navbar
 
 Before implementation:
-- Read `agent.md`, this file, `docs/DESIGN-SYSTEM.md`, and `WORKING.md`.
+- Read `docs/AGENTS.md`, this file, `docs/DESIGN-SYSTEM-1.md`, and `working.md`.
 - Inspect the repository and existing conventions.
 - Confirm the installed Tailwind version and use its matching documentation/syntax.
 - Inspect the supplied Traver reference.
