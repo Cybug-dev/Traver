@@ -40,7 +40,7 @@
   --color-focus-ring: var(--color-focus);
   --spacing-header: var(--header-height);
   --spacing-nav-action: var(--button-height-nav);
-  --spacing-auth-action: 4.375rem;
+  --spacing-auth-action: var(--nav-action-width);
   --radius-control: var(--radius-button);
   --shadow-floating: var(--shadow-float);
   --shadow-search: var(--shadow-search-panel);
@@ -82,7 +82,7 @@
 
   --color-surface: #ffffff;
   /* Neutral near-white used by the reference navbar. */
-  --color-surface-header: #f7f7f7;
+  --color-surface-header: #f9f9f9;
   /* Screenshot-sampled cool, near-white section surface. */
   --color-surface-soft: #f6f8f7;
   /* Screenshot-sampled warm surface used by the lower promotional panel. */
@@ -185,8 +185,12 @@
      5. Component sizing
      ----------------------------------------------------------------------- */
 
-  --header-height: 3.5rem;
-  --button-height-nav: 1.625rem;
+  --header-height: clamp(3.125rem, 5.13vw, 4rem);
+  --button-height-nav: clamp(1.625rem, 2.67vw, 2.125rem);
+  --nav-action-width: clamp(4.375rem, 7.19vw, 5.5rem);
+  --nav-brand-size: clamp(1.5rem, 2.46vw, 1.75rem);
+  --nav-wordmark-size: clamp(0.9375rem, 1.64vw, 1.25rem);
+  --nav-link-gap: clamp(1.75rem, 3.28vw, 2.25rem);
   --button-height-sm: 2.5rem;
   --button-height-md: 2.875rem;
   --button-height-lg: 3.25rem;
@@ -276,9 +280,32 @@
 }
 .reference-nav-link { font-size: clamp(0.6875rem, 1.13vw, 0.875rem); }
 .reference-auth-label { font-size: clamp(0.625rem, 1.03vw, 0.75rem); }
-.reference-header { min-height: clamp(3rem, 5.13vw, 3.5rem); }
+.reference-header { min-height: var(--header-height); }
+.navbar-brand-mark { width: var(--nav-brand-size); height: var(--nav-brand-size); }
+.navbar-brand-name { font-size: var(--nav-wordmark-size); }
+.navbar-links { gap: var(--nav-link-gap); }
+.reference-nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: var(--space-2);
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+.reference-nav-link:focus-visible::after { transform: scaleX(1); transition: none; }
+
+@media (hover: hover) and (pointer: fine) {
+  .reference-nav-link:not([aria-disabled="true"]):hover::after { transform: scaleX(1); }
+}
 
 @media (max-width: 47.999rem) {
+  :root { --header-height: 4rem; --nav-brand-size: 1.75rem; --nav-wordmark-size: 1.125rem; }
+  .navbar-mobile-panel { max-height: calc(100dvh - var(--header-height) - var(--space-6)); }
+  .navbar-mobile-actions > div { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .navbar-mobile-actions .navbar-auth-action { width: 100%; min-height: var(--space-12); min-width: 0; font-size: var(--text-sm); }
   .landing-container { width: calc(100% - var(--space-10)); }
   .hero-layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); padding-top: var(--space-8); padding-bottom: var(--space-12); }
   .hero-copy { padding-top: 0; }

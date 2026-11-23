@@ -6,15 +6,18 @@
 - React 19.3.1, Tailwind 4.3.4, Vite 8.3.5, npm. Motion 14.14.0 added for the approved hero choreography.
 
 ## Current task
-- **Right-edge photo crop (complete):** Boardwalk frame extends 44px beyond the desktop viewport so section overflow clips its actual rounded right corners. Its left/top/height and other photos stay in place. Mobile restores the fitted frame. Three files edited: HeroCollage (edge-photo marker), CSS (desktop extension/mobile override), this log. No new files/dependencies.
-- **App-wide font/button consistency (complete):** All text uses the navbar's shared Poppins family. Removed the separate detail-font token; badge/search headings use semibold 600. Navbar auth and search actions share the 12px control radius (aliases existing medium radius). Four files edited: CSS, design-system notes, token-reference notes, working log. No dependencies/new files. This supersedes prior Arial detail-font experiments.
-- **Font scope correction (complete):** Restored Poppins for normal copy, badge body, inputs, and button; retained narrower family only for bold badge titles/search labels. Restored description's full column width for Poppins wrapping. Kept smaller sizes and pale background. Three files edited; no new files. Build/diff checks recorded below.
-- **Typography refinement (complete):** Glass badges, hero description, and search controls now use a narrower Arial/Helvetica detail stack; main heading remains Poppins. Reduced desktop labels/captions and button dimensions/weight, applied existing #FAFAFA search surface. Three files edited: CSS, Token-Reference, this log. No new files or dependencies. Source typeface remains a visual estimate.
-- **Goal:** Correct header/hero fidelity to the supplied screenshot, including original copy, mixed-weight heading, glass badges, collage spacing, deliberate right-edge crop, and overlapping search.
-- **Scope:** Eight files: new `src/components/search/TripSearchForm.tsx`; edit HeroSection, HeroCollage, hero.motion, Navbar, global CSS, Token-Reference, and this log. No dependency or photo-asset changes. No agent-rule or extra-document edits.
-- **Status:** Implemented; desktop/mobile and form behavior checked. Original template photographs remain unavailable; layout proportions and typeface are screenshot estimates.
-
+- **Goal:** Improve mobile navbar height/menu/buttons, remove coming-soon popup, and keep the header visible while scrolling.
+- **Status:** Implementation and checks complete; all eight task files are included in the navbar commit. User explicitly authorized pushing it and the earlier docs/hero commits to origin/main. Verify the remote branch state before resuming; the push result is reported in the conversation.
+- **Scope:** Six existing files edited: Navbar.tsx, navbar.motion.ts, src/index.css, docs/APP-FLOW.md, docs/Token-Reference.md, working.md. No new files/dependencies in this slice.
+- **Final behavior:** Sticky header on all widths; mobile height64px, brand28px/wordmark18px. Inset rounded menu with Home highlight, outline icon tiles, soft backdrop, equal-width48px account actions. Unfinished sections are aria-disabled with no destination/popup. Closed menu/backdrop are inert; outside, Escape, navigation and desktop-resize dismissal work. Short-screen panel scrolls internally.
+- **Previous commits:** f8196b9 (docs/reference), 6c31aac (hero/search). Current navbar commit also includes the shared ms/s timing reader and hero consumer fix. Preserve unrelated docs/components.json and placeholder JPG; do not include them in this commit.
 ## Completed
+- Redesigned mobile header/menu:64px sticky header, 28px mark/18px wordmark, inset 24px-radius panel, Home highlight, consistent outline icon tiles, soft white/blurred backdrop, and muted account footer with two equal48px actions.
+- Removed navigationMessage state and its popup markup entirely. Unfinished section items are explicitly disabled and unfocusable; Home remains the real working target. Existing account actions stay disabled until their flows exist.
+- Added outside-pointer and breakpoint listeners with cleanup. Header is sticky top0; panel stays anchored at72px on mobile after scrolling, fits the dynamic viewport, and scrolls internally on landscape screens. Escape/backdrop restore toggle focus.
+- Refined navbar header/brand/action dimensions and link spacing with capped responsive tokens; sampled header surface #F9F9F9 from the reference. Kept outlined Sign Up and filled Login disabled until actual flows exist.
+- Added separate navbar entrance/menu choreography and shared CSS motion-token reader. Fixed production seconds/milliseconds parsing for both hero and navbar; verified actual 220ms browser animations rather than just settled states.
+- Raised header to z-50 to prevent hero z-20 content intercepting mobile menu clicks. Hidden menu is inert/aria-hidden and pointer-disabled; Escape restores focus; link click closes menu; keyboard actions skip transition delays.
 - Corrected header geometry, plane mark, navigation sizing, and compact auth actions. Restored screenshot heading/copy and badge wording as reference demo content.
 - Measured the 974px reference page: collage around (491,76), 498 × 463px; search around (72,376), 481 × 65px; photo gaps approximately 15px. Desktop section clips deliberate photo overflow without horizontal scrolling.
 - Glass badges use translucent warm/white surfaces with 24px backdrop blur; mobile badge grows to fit its text.
@@ -32,9 +35,12 @@
 - None for this approved slice.
 
 ## Next step
-Review the corrected header/hero with the user against `traver temp/traver-landing-reference.jpeg`. Exact photographic matching would require the original four photo assets. Do not start lower sections or expand the local search demo without instruction.
-
+Review the mobile navbar/menu with the user at320px and390px, including sticky behavior after scrolling. Start from Navbar.tsx and navbar.motion.ts for requested adjustments. When actual sections are implemented, enable their navigationLinks.available flags; do not restore coming-soon alerts. Do not start another section or commit automatically.
 ## Files changed
+Latest mobile redesign (6 edits): Navbar.tsx — sticky/menu UI, link semantics, popup removal and dismissal; navbar.motion.ts — panel scale and backdrop variants; src/index.css — mobile header/control sizing and panel height; docs/APP-FLOW.md — navigation behavior; docs/Token-Reference.md — mobile design notes; working.md — checks/handoff.
+
+Navbar refinement (7): `src/components/navigation/Navbar.tsx` — layout/menu semantics and layering; `navbar.motion.ts` (new) — entrance/menu variants; `src/lib/motion.ts` (new) — CSS duration/easing reader with ms/s conversion; `src/sections/hero/hero.motion.ts` — reuse corrected reader; `src/index.css` — responsive capped navbar tokens, reference surface, hover feedback; `docs/Token-Reference.md` — measurements and large-screen behavior; `working.md` — checks/handoff.
+
 Latest refinement (3 edits): `src/index.css` — smaller detail typography, narrower font stack, compact action, pale search surface; `docs/Token-Reference.md` — visual estimates; `working.md` — handoff/checks.
 
 Current correction (8): `src/components/search/TripSearchForm.tsx` (created); `src/sections/hero/HeroSection.tsx`, `HeroCollage.tsx`, `hero.motion.ts`, `src/components/navigation/Navbar.tsx`, `src/index.css`, `docs/Token-Reference.md`, `working.md` (edited).
@@ -56,6 +62,12 @@ Edited (5):
 - `working.md` — task state, checks, learning, handoff.
 
 ## Checks/results
+- Mobile redesign: build, lint, standalone TypeScript and diff checks passed. Production browser checks at390x844,320x568,667x375 confirmed64px header, equal account button outer dimensions (140x48 at390px,105x48 at320px), no horizontal overflow, no navbar status popup, four disabled unfinished links, and internal panel scrolling in landscape.
+- Sticky browser checks at390,320,667 and1440px confirmed header top0 after page scroll; mobile menu remains at72px and inside viewport. Backdrop/outside click, Escape focus, Home close, and desktop-resize dismissal passed. No browser runtime errors. Inspected mobile screenshots at390/320px after scroll.
+- Navbar refinement: build, lint, standalone TypeScript and diff checks passed. Desktop browser checks at768,974,1280,1440,1920,2560px confirmed centered navigation (error <=0.02px), no group overlap, no horizontal scroll, header <=64px, container <=1200px, action cap88x34px. Reference and large-screen header screenshots inspected.
+- Mobile browser checks at390/320px: menu links receive clicks above the hero; missing-target feedback, close-after-navigation, Escape/focus restoration, inert closed panel, keyboard instant opening, rapid open/close reversal, and reduced-motion rendering passed. Inspected mobile open-menu screenshots. No browser runtime errors.
+- Production animation sampling after parser correction: actual Web Animations durations220ms, opacity progressed from0.049 to0.999 and translation from-7.6px toward0 before settling. Confirmed the previous minification bug, fixed it, and repeated interaction checks successfully.
+- Initial mobile check exposed hero content intercepting menu clicks; fixed the header stacking order before final passing checks.
 - Edge-photo correction: build and diff check passed. Production browser checks at 974, 1440, 1920px confirmed 44px right-edge crop (greater than the 24/32px corner radius), no horizontal page overflow. At 390px, photo fits inside the viewport. Desktop screenshot inspected.
 - Shared-font/radius correction: production build and diff check passed. Browser checks at 974px and 320px confirmed one Poppins font stack across navbar, hero, badges, inputs and button; Poppins font actually loaded; all auth/search button radii 12px; badge heading weight 600; no horizontal overflow. Desktop screenshot inspected. No behavior changes.
 - Font-scope correction: build and `git diff --check` passed. Production browser check at 974px confirmed Poppins on description, badge body, inputs, button; Arial only on badge titles/search labels. No horizontal overflow; inspected screenshot. No new UI behavior introduced.
@@ -85,6 +97,12 @@ Edited (5):
 - Native scrolling retained. Lenis and other animation/icon libraries were not added.
 
 ## Learning log
+- **Sticky layout:** sticky top-0 keeps the header in normal document flow until it reaches the viewport top. Its positioned menu remains attached beneath it during scroll.
+- **Mobile hierarchy:** icon tiles and an active row organize navigation; a two-column grid gives account actions equal widths. A dynamic-viewport max-height and overflow-y-auto keep the menu usable on short screens.
+- **Light dismissal:** effect listeners close an open panel on outside pointer/desktop resize and clean themselves up; inert excludes closed UI from focus and interaction. Unavailable links are disabled rather than using a popup to simulate navigation.
+- **Independent centering:** `absolute left-1/2 -translate-x-1/2` centers navigation independently of unequal brand/action widths. `clamp()` sets deliberate minimum/maximum control sizes so ultrawide screens do not enlarge them indefinitely.
+- **Interruptible menu:** keeping the panel mounted lets Motion reverse from its current opacity/position. `inert` removes closed controls from focus and interaction immediately while its visual exit finishes.
+- **Production-safe timing:** CSS minifiers can rewrite220ms as .22s. A shared reader checks the suffix before converting, so both forms become0.22seconds for Motion. Choreography remains separate from this common unit-conversion utility.
 - **Shared design tokens:** navbar/search buttons now both read `--radius-button`, which aliases the existing 12px medium radius. One token change keeps equivalent controls consistent. All text inherits `--font-body`; compact headings vary weight, not family.
 - **Detail typography:** font family changes glyph width/shape independently of font size and weight. A separate detail font token scopes the adjustment to badges, supporting copy, and search rather than altering every heading. Desktop button geometry is separate from touch sizing via media queries.
 - **Overlap and clipping:** `relative` gives absolutely positioned photos their coordinate system; percentage-based named spacing utilities keep photo positions proportional. `z-20` lets the wider search panel cover the lower image, while section `overflow-hidden` clips only the intentional right-edge bleed.

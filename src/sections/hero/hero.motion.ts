@@ -1,20 +1,6 @@
 import { useState } from "react";
 import { useReducedMotion, type Variants } from "motion/react";
-
-// Read existing theme timings once; Motion expects seconds, CSS uses ms.
-function readMotionTokens() {
-  const styles = getComputedStyle(document.documentElement);
-  const seconds = (name: string) =>
-    Number.parseFloat(styles.getPropertyValue(name)) / 1000;
-  const curve = styles.getPropertyValue("--ease-standard").match(/[\d.]+/g);
-
-  return {
-    fast: seconds("--duration-fast"),
-    normal: seconds("--duration-normal"),
-    slow: seconds("--duration-slow"),
-    ease: (curve?.map(Number) ?? [0.2, 0, 0, 1]) as [number, number, number, number],
-  };
-}
+import { readMotionTokens } from "../../lib/motion";
 
 // Choreography belongs here; the components only attach these variants.
 export function useHeroMotion() {

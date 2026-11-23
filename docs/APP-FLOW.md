@@ -65,6 +65,8 @@ Do not implement until requested. Make the simulated nature clear.
 Do not collect or transmit real credentials. Build only when requested.
 
 ### E. Navigation
+- Header remains visible at the top while scrolling. The mobile menu stays anchored below it and dismisses through its toggle, outside/backdrop click, Escape, real navigation, or a switch to desktop.
+- Unbuilt section items are visibly/programmatically disabled and do not navigate. Do not show coming-soon popups. Enable an item when its actual target section is implemented.
 - Header links should lead to the relevant page or landing-page section.
 - Use appropriate anchors or smooth scrolling for sections on the same page.
 - Do not create dead links or pretend unfinished pages exist. Use an agreed placeholder or ask the user.

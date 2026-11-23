@@ -26,14 +26,19 @@
 The supplied navbar reference uses the sampled orange `#F2701C` for both the outlined Sign Up action and the filled Login action, with white text on the filled action. The site follows that visual treatment through `--color-brand`; the previous dark-orange `--color-brand-accessible` variant has been removed so it cannot become a competing CTA background. White text on this orange does not meet WCAG AA contrast for normal-size text, so keep button labels bold and use the dark brand text color for small outlined actions where the reference permits it. The lighter `--color-brand-hover` (`#F58432`) preserves the same bright orange character during hover.
 
 ## Navbar measurements
-- Header height: fluid 48–56px, approximately 50px at 974px, following the later request for template fidelity.
-- Header background: neutral near-white `#F7F7F7` estimate.
-- Brand mark: 24px, with compact 6px spacing before the wordmark.
-- Auth actions: 70px wide by 26px high, 8px gap, and equal sizing. Corners now use the shared 12px control token, following the user's smoothing/consistency request. The outlined action uses estimated soft-orange border `#E6C5A7` and text `#C96B2E`.
-- Desktop nav links: 14px, increasing to 15px on wide displays, with 36px gaps and 40px gaps on large displays; auth labels: 12px semibold with tight line height, using Tailwind's standard `text-xs` utility.
+- Header height: about 50px at 974px, growing to a 64px cap on large screens. Mobile uses 64px after the user's request for more breathing room. The height token also controls anchor scroll clearance.
+- Header background: `#F9F9F9`, sampled at several unobstructed pixels in the clearer JPEG reference; this is a screenshot sample, not source CSS metadata.
+- Brand mark: 24px at reference width, capped at 28px on large screens, with compact 6px spacing before the wordmark. Wordmark grows from 16px to a 20px cap.
+- Auth actions: about 70 × 26px at 974px, capped at 88 × 34px on large screens, 8px gap, and equal sizing. Mobile menu actions have at least 46px height and 96px width. Shared 12px control corners. Sign Up retains a soft-orange outline and transparent surface; Login remains filled orange. Actions stay disabled until real account flows exist.
+- Desktop links: approximately 11px at reference width, capped at 14px; gaps about 32px at reference width, capped at 36px. Auth labels scale from 10px to a 12px cap. Poppins remains the shared app font.
 - The navbar has no bottom border; component styles should use named token utilities, not arbitrary values.
 - Desktop nav links are centered independently of the edge-aligned brand and auth actions.
 - Desktop content width: approximately five-sixths of the viewport, capped by the shared 1200px container.
+- On wide/ultrawide displays the 1200px content cap prevents oversized navigation or controls drifting to the screen edges. Header surface spans the viewport; content remains aligned with the hero container.
+- Motion is an implementation choice because the supplied reference is static: short staggered brand/nav/action entrance; subtle link underline feedback; interruptible mobile-panel opacity/translation. Keyboard menu actions are instant and reduced motion removes entrance movement. Choreography lives in `src/components/navigation/navbar.motion.ts` and reads the existing timing/easing tokens.
+- Shared `src/lib/motion.ts` converts CSS durations with either ms or s suffixes; production minification must not collapse a 220ms transition into 0.22ms. Hero and navbar keep separate choreography but share this conversion.
+- Mobile menu is an inset white card with 24px corners, 20px screen gutters, active warm Home row, outline icon tiles, and a separate muted account footer. Auth actions fill two equal columns at 48px height with 14px labels and shared 12px control corners. Panel scrolls internally on short screens and dismisses on outside click, Escape, navigation, or a switch to desktop. Unfinished section items are disabled; the coming-soon popup has been removed.
+- Header is sticky at viewport top on all screen sizes, per the user's scroll request. Mobile menu has a lightly blurred white backdrop beneath the sticky header; its account footer uses the same 12px control corners. Backdrop/toggle dismissals preserve keyboard access and focus.
 
 ## Clearer hero reference: layout correction
 
