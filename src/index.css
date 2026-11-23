@@ -1,4 +1,4 @@
-/*
+﻿/*
  * TRAVER — design tokens and lightweight global base styles
  * Source: the supplied Traver landing-page screenshot (521 × 1536).
  *
@@ -26,6 +26,12 @@
   --color-accent-outline: var(--color-brand-outline);
   --color-accent-text: var(--color-brand-text);
   --color-content: var(--color-text);
+  --color-secondary: var(--color-text-secondary);
+  --color-muted: var(--color-text-muted);
+  --color-peach: var(--color-brand-soft-strong);
+  --color-glass-warm: rgb(255 244 238 / 65%);
+  --color-glass-white: rgb(255 255 255 / 65%);
+  --font-reference: var(--font-body);
   --color-on-accent: var(--color-text-inverse);
   --color-header-surface: var(--color-surface-header);
   --color-canvas: var(--color-surface);
@@ -34,9 +40,22 @@
   --color-focus-ring: var(--color-focus);
   --spacing-header: var(--header-height);
   --spacing-nav-action: var(--button-height-nav);
-  --spacing-auth-action: 4.75rem;
+  --spacing-auth-action: 4.375rem;
   --radius-control: var(--radius-button);
   --shadow-floating: var(--shadow-float);
+  --shadow-search: var(--shadow-search-panel);
+  --text-display: var(--text-hero);
+  --text-display--line-height: var(--leading-tight);
+  /* Measured proportions of the supplied desktop collage. */
+  --spacing-photo-inset: 13.3%;
+  --spacing-photo-column: 51.1%;
+  --spacing-photo-narrow: 34.8%;
+  --spacing-photo-wide: 48.1%;
+  --spacing-photo-tall: 43.9%;
+  --spacing-photo-short: 41.3%;
+  --spacing-photo-offset: 9.5%;
+  --spacing-photo-lower: 47.2%;
+  --spacing-photo-last: 56.5%;
 }
 
 :root {
@@ -146,7 +165,7 @@
      ----------------------------------------------------------------------- */
 
   --radius-sm: 0.5rem;    /* 8px — compact controls */
-  --radius-button: 0.625rem; /* 10px — shared button corner */
+  --radius-button: var(--radius-md); /* Shared 12px button/control corner. */
   --radius-md: 0.75rem;   /* 12px — buttons and small cards */
   --radius-lg: 1rem;      /* 16px — cards */
   --radius-xl: 1.5rem;    /* 24px — image groups and larger cards */
@@ -160,14 +179,14 @@
   --shadow-card: 0 0.35rem 1.25rem rgb(17 17 17 / 5%);
   --shadow-card-hover: 0 0.75rem 1.75rem rgb(17 17 17 / 9%);
   --shadow-float: 0 0.5rem 1.5rem rgb(17 17 17 / 8%);
-  --shadow-search: 0 0.25rem 1.25rem rgb(17 17 17 / 6%);
+  --shadow-search-panel: 0 0.25rem 1.25rem rgb(17 17 17 / 6%);
 
   /* -----------------------------------------------------------------------
      5. Component sizing
      ----------------------------------------------------------------------- */
 
   --header-height: 3.5rem;
-  --button-height-nav: 1.875rem;
+  --button-height-nav: 1.625rem;
   --button-height-sm: 2.5rem;
   --button-height-md: 2.875rem;
   --button-height-lg: 3.25rem;
@@ -184,6 +203,108 @@
   --duration-normal: 220ms;
   --duration-slow: 320ms;
   --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Reference-specific scale: desktop page area is 974px wide in the image. */
+  --landing-width: 85.2%;
+  --hero-reference-size: clamp(2.125rem, 3.7vw, 3.25rem);
+  --hero-reference-copy: clamp(0.75rem, 1.23vw, 0.9375rem);
+  --hero-reference-caption: clamp(0.625rem, 1.03vw, 0.75rem);
+  --hero-reference-label: clamp(0.6875rem, 1.18vw, 0.875rem);
+  --hero-reference-radius: clamp(1.5rem, 2.45vw, 2rem);
+  --search-action-width: clamp(6.625rem, 10.9vw, 9rem);
+  --search-action-height: clamp(2.125rem, 3.49vw, 2.75rem);
+}
+
+/* Named composition rules preserve the reference's deliberate overlap/crop. */
+.landing-container { width: min(var(--landing-width), var(--container-max)); }
+.hero-layout {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  padding-top: clamp(1.5rem, 2.65vw, 2.5rem);
+}
+.hero-copy { padding-top: clamp(3rem, 6.8vw, 7rem); }
+.hero-eyebrow { font-size: clamp(0.875rem, 1.44vw, 1.125rem); }
+.hero-badge-title,
+.trip-search-label { font-weight: var(--font-weight-semibold); }
+.hero-title {
+  margin-top: var(--space-1);
+  font-size: var(--hero-reference-size);
+  line-height: 1.22;
+  letter-spacing: -0.025em;
+}
+.hero-description {
+  max-width: 100%;
+  margin-top: var(--space-4);
+  font-size: var(--hero-reference-copy);
+  line-height: 1.6;
+}
+.hero-search { width: 116%; margin-top: var(--space-4); }
+.hero-collage { width: 120%; aspect-ratio: 497 / 462; margin-left: var(--space-1); }
+.hero-collage > div { border-radius: var(--hero-reference-radius); }
+/* The collage starts at viewport center + its 4px inset. Let the actual
+   photo frame cross the screen edge; section clipping hides its far corners. */
+.hero-collage .hero-photo-edge {
+  width: auto;
+  right: calc(100% - 50vw - var(--space-10));
+}
+.hero-destination-badge {
+  left: -4%; top: 22.3%; width: 25.8%; height: 18.2%;
+}
+.hero-verification-badge {
+  left: 55.7%; top: 4.5%; width: 12.3%; height: 11.7%;
+}
+.hero-collage .hero-destination-badge,
+.hero-collage .hero-verification-badge { border-radius: var(--radius-lg); }
+.hero-badge-title { font-size: var(--hero-reference-label); line-height: 1.3; }
+.hero-badge-body { font-size: var(--hero-reference-caption); line-height: 1.6; }
+.trip-search {
+  grid-template-columns: 1.05fr 1fr auto;
+  gap: var(--space-3);
+  min-height: clamp(4rem, 6.7vw, 5.5rem);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface-input);
+}
+.trip-search-icon { width: 2.25rem; height: 2.25rem; }
+.trip-search-label { font-size: var(--hero-reference-label); }
+.trip-search-value { font-size: clamp(0.5625rem, 0.93vw, 0.8125rem); line-height: 1.6; }
+.trip-search-date { border-left: var(--border-default); padding-left: var(--space-3); }
+.trip-search-button {
+  width: var(--search-action-width);
+  min-height: var(--search-action-height);
+  border-radius: var(--radius-button);
+  font-size: var(--hero-reference-label);
+  font-weight: var(--font-weight-medium);
+}
+.reference-nav-link { font-size: clamp(0.6875rem, 1.13vw, 0.875rem); }
+.reference-auth-label { font-size: clamp(0.625rem, 1.03vw, 0.75rem); }
+.reference-header { min-height: clamp(3rem, 5.13vw, 3.5rem); }
+
+@media (max-width: 47.999rem) {
+  .landing-container { width: calc(100% - var(--space-10)); }
+  .hero-layout { grid-template-columns: minmax(0, 1fr); gap: var(--space-8); padding-top: var(--space-8); padding-bottom: var(--space-12); }
+  .hero-copy { padding-top: 0; }
+  .hero-title { font-size: clamp(2rem, 5.5vw, 3rem); }
+  .hero-description { max-width: var(--content-max); font-size: var(--text-sm); margin-top: var(--space-5); }
+  .hero-search { width: 100%; margin-top: var(--space-6); }
+  .hero-collage { width: 100%; max-width: 40rem; margin-inline: auto; }
+  .hero-collage .hero-photo-edge { width: var(--spacing-photo-wide); right: auto; }
+  .hero-destination-badge { left: 0; width: 40%; height: auto; min-height: var(--space-20); padding-block: var(--space-2); }
+  .hero-verification-badge { width: 16%; }
+  .hero-badge-title { font-size: clamp(0.625rem, 2vw, 0.875rem); }
+  .hero-badge-body { font-size: clamp(0.625rem, 1.8vw, 0.75rem); }
+  .trip-search { min-height: 5rem; }
+  .trip-search-value { font-size: 0.6875rem; }
+}
+
+@media (max-width: 35.999rem) {
+  .trip-search { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); padding: var(--space-4); }
+  .trip-search-date { border-left: 0; padding-left: 0; }
+  .trip-search-field { min-height: var(--button-height-sm); }
+  .trip-search-label { font-size: var(--text-sm); }
+  .trip-search-button { width: 100%; min-height: var(--button-height-md); font-size: var(--text-sm); }
+}
+
+@media (pointer: coarse) {
+  .trip-search-button { min-height: var(--button-height-md); }
 }
 
 /* Tablet: retain breathing room while tightening long-page sections. */
@@ -218,71 +339,86 @@
    Lightweight global base styles
    ------------------------------------------------------------------------- */
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + var(--space-4));
-  text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
-  min-width: 320px;
-  background: var(--color-surface);
-  color: var(--color-text);
-  font-family: var(--font-body);
-  font-size: var(--text-base);
-  font-weight: var(--font-weight-regular);
-  line-height: var(--leading-normal);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-:where(h1, h2, h3, h4, h5, h6) {
-  margin: 0;
-  color: var(--color-text);
-  font-family: var(--font-heading);
-  font-weight: var(--font-weight-bold);
-  letter-spacing: var(--tracking-tight);
-  line-height: var(--leading-heading);
-}
-
-:where(p) {
-  margin: 0;
-}
-
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-height) + var(--space-4));
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    background: var(--color-surface);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
+    color: var(--color-text);
+    font-family: var(--font-heading);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-heading);
+  }
+
+  :where(p) {
+    margin: 0;
+  }
+
   :where(button, input, select, textarea) {
     font: inherit;
   }
+
+  :where(button, a, input, select, textarea) {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :where(a) {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :where(img, picture, video, canvas, svg) {
+    display: block;
+    max-width: 100%;
+  }
+
+  :where(img) {
+    height: auto;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 3px;
+  }
 }
 
-:where(button, a, input, select, textarea) {
-  -webkit-tap-highlight-color: transparent;
+/* Image states share the existing timing tokens; their parent reserves space. */
+.travel-image {
+  transition: opacity var(--duration-slow) var(--ease-standard);
 }
 
-:where(a) {
-  color: inherit;
-  text-decoration: none;
+.travel-image-placeholder {
+  background: linear-gradient(110deg, var(--color-surface-soft) 25%, var(--color-border) 45%, var(--color-surface-soft) 65%);
+  background-size: 200% 100%;
+  animation: image-loading calc(var(--duration-slow) * 5) linear infinite;
 }
 
-:where(img, picture, video, canvas, svg) {
-  display: block;
-  max-width: 100%;
-}
-
-:where(img) {
-  height: auto;
-}
-
-:focus-visible {
-  outline: 3px solid var(--color-focus);
-  outline-offset: 3px;
+@keyframes image-loading {
+  to { background-position: -200% 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

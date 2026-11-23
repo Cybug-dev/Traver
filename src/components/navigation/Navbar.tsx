@@ -18,13 +18,14 @@ function BrandMark() {
       <span className="grid size-6 place-items-center rounded-full bg-accent text-on-accent">
         <svg
           aria-hidden="true"
-          className="size-3 stroke-accent"
+          className="size-4"
           fill="none"
           viewBox="0 0 24 24"
         >
-          <path d="m21 3-7.2 18-3.6-7.2L3 10.2 21 3Z" fill="currentColor" />
+          <path d="m3 11 3 1 5-2-4-5 2-1 7 4 3-1c3-1 4 2 1 3L8 15l-4-1-1-3Z" fill="currentColor" />
           <path
-            d="m10.2 13.8 4.5-4.5"
+            d="M4 19h16"
+            stroke="currentColor"
             strokeLinecap="round"
             strokeWidth="1.5"
           />
@@ -42,7 +43,7 @@ function AuthActions() {
     <div className="flex items-center gap-2">
       <button
         aria-label="Sign up is not available yet"
-        className="h-nav-action w-auth-action cursor-not-allowed whitespace-nowrap rounded-control border border-accent-outline bg-canvas px-3 py-1 text-xs leading-none text-accent-text"
+        className="reference-auth-label h-nav-action w-auth-action cursor-not-allowed whitespace-nowrap rounded-control border border-accent-outline bg-canvas px-3 py-1 leading-none text-accent-text"
         disabled
         title="Sign up will be connected when the account flow is built"
         type="button"
@@ -51,7 +52,7 @@ function AuthActions() {
       </button>
       <button
         aria-label="Login is not available yet"
-        className="h-nav-action w-auth-action cursor-not-allowed whitespace-nowrap rounded-control bg-accent px-3 py-1 text-xs leading-none font-semibold text-on-accent transition-colors hover:bg-accent-hover"
+        className="reference-auth-label h-nav-action w-auth-action cursor-not-allowed whitespace-nowrap rounded-control bg-accent px-3 py-1 leading-none font-semibold text-on-accent transition-colors hover:bg-accent-hover"
         disabled
         title="Login will be connected when the account flow is built"
         type="button"
@@ -100,7 +101,7 @@ export default function Navbar() {
         }
       }}
     >
-      <div className="relative mx-auto flex min-h-header max-w-6xl items-center justify-between gap-4 px-5 sm:px-7 md:w-5/6 md:px-2 lg:px-3">
+      <div className="landing-container reference-header relative mx-auto flex items-center justify-between gap-4">
         <BrandMark />
 
         <nav
@@ -111,7 +112,7 @@ export default function Navbar() {
             {navigationLinks.map((link) => (
               <li key={link.label}>
                 <a
-                  className="rounded-sm py-2 text-sm font-medium text-content transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring lg:text-base"
+                  className="reference-nav-link rounded-sm py-2 font-medium text-content transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus-ring"
                   href={link.href}
                   onClick={(event) =>
                     handleNavigation(event, link.label, link.href)
